@@ -158,3 +158,4 @@ pet-clinic-data/src/test/
 pet-clinic-web/target/classes/batman.jpg
 pet-clinic-web/target/classes/templates/
 pet-clinic-data/target/classes/META-INF/
+/pet-clinic-web/target/
