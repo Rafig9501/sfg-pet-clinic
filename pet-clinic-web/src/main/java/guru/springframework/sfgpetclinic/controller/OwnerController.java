@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping({"/owners", "/owner"})
 public class OwnerController {
 
     private final OwnerService ownerService;
@@ -14,9 +15,14 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @RequestMapping({"/owners", "/owner"})
+    @RequestMapping("/")
     public String listOfOwners(Model model){
         model.addAttribute("owners",ownerService.findAll());
         return "owner/owner";
+    }
+
+    @RequestMapping("/find")
+    public String findOwners(){
+        return "findOwners";
     }
 }
