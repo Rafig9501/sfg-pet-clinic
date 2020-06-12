@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Entity
-@Table
+@Table(name = "pet")
 public class Pet extends BaseEntity{
 
     @Column

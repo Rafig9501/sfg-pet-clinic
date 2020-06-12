@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,5 +18,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class Vet extends Person {
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "vet_specialities",
+            joinColumns = @JoinColumn(name = "vet_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties = new HashSet<>();
 }

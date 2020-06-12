@@ -10,7 +10,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table
+@Table(name = "owner")
 public class Owner extends Person {
 
     @Column
