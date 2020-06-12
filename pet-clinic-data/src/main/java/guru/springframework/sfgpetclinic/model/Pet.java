@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "pet")
+@Table
 public class Pet extends BaseEntity{
 
     @Column
@@ -31,4 +33,8 @@ public class Pet extends BaseEntity{
 
     @Column
     private LocalDate birthDate;
+
+    @Column
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+    private Set<Visit> visits = new HashSet<>();
 }
