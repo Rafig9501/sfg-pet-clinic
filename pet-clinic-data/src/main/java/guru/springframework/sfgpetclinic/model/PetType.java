@@ -5,11 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table
+@Entity
 public class PetType extends BaseEntity{
 
+    @Column
     private String typeName;
 }
