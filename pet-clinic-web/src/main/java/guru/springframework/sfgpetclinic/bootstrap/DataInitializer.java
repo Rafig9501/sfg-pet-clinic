@@ -5,7 +5,6 @@ import guru.springframework.sfgpetclinic.service.OwnerService;
 import guru.springframework.sfgpetclinic.service.PetTypeService;
 import guru.springframework.sfgpetclinic.service.SpecialtyService;
 import guru.springframework.sfgpetclinic.service.VetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,6 @@ public class DataInitializer implements CommandLineRunner {
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
 
-    @Autowired
     public DataInitializer(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
         this.ownerService = ownerService;
         this.vetService = vetService;

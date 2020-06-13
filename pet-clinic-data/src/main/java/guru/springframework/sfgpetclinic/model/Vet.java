@@ -1,21 +1,15 @@
 package guru.springframework.sfgpetclinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table
 public class Vet extends Person {
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -23,4 +17,12 @@ public class Vet extends Person {
             joinColumns = @JoinColumn(name = "vet_id"),
             inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties = new HashSet<>();
+
+    public Set<Specialty> getSpecialties() {
+        return specialties;
+    }
+
+    public void setSpecialties(Set<Specialty> specialties) {
+        this.specialties = specialties;
+    }
 }
