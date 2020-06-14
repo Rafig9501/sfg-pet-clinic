@@ -1,54 +1,44 @@
 package guru.springframework.sfgpetclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(exclude = {"pets"}, callSuper = true)
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
-@Table
 public class Owner extends Person {
 
+    @Builder
+    public Owner(Long id, String firstName, String lastName, String address, String city,
+                 String phone, Set<Pet> pets) {
+        super(id, firstName, lastName);
+        this.address = address;
+        this.city = city;
+        this.phone = phone;
+
+        if(pets != null) {
+            this.pets = pets;
+        }
+    }
+
     @Column
+    @NonNull
     private String address;
 
     @Column
+    @NonNull
     private String city;
 
     @Column
+    @NonNull
     private String phone;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @NonNull
     private Set<Pet> pets = new HashSet<>();
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Set<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(Set<Pet> pets) {
-        this.pets = pets;
-    }
 }

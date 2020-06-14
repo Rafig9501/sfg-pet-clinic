@@ -1,24 +1,23 @@
 package guru.springframework.sfgpetclinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Setter
+@Getter
 @NoArgsConstructor
+@Entity
 public class Specialty extends BaseEntity {
 
     @Column
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+    @Builder
+    public Specialty(Long id, String description) {
+        super(id);
         this.description = description;
     }
 }

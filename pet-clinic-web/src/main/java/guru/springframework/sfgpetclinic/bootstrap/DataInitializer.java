@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -34,70 +36,52 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void loadData() {
-        Owner owner1 = new Owner();
-        owner1.setFirstName("John");
-        owner1.setLastName("Adams");
-        owner1.setAddress("123 Bribeckel");
-        owner1.setCity("Miami");
-        owner1.setPhone("+123214122123");
+        Owner owner1 = Owner.builder().firstName("John").lastName("Adams").address("123 Bribeckel")
+                .city("Miami").phone("+123214122123").build();
 
-        PetType savedCatType = petTypeService.save(new PetType("cat"));
-        Pet mikesPet = new Pet();
-        mikesPet.setPetType(savedCatType);
-        mikesPet.setBirthDate(LocalDate.now());
-        mikesPet.setOwner(owner1);
-        mikesPet.setName("Rosco");
+        PetType savedCatType = petTypeService.save(PetType.builder().typeName("cat").build());
+        Pet mikesPet = Pet.builder().petType(savedCatType).birthDate(LocalDate.now())
+                .owner(owner1).name("Rosco").build();
+
         owner1.getPets().add(mikesPet);
-
         ownerService.save(owner1);
 
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Kate");
-        owner2.setLastName("Anabel");
-        owner2.setAddress("123 Bribeckel");
-        owner2.setCity("Miami");
-        owner2.setPhone("+123214122123");
+        Owner owner2 = Owner.builder().firstName("Kate").lastName("Anabel").address("123 Bribeckel")
+                .city("Miami").phone("+123214122123").build();
 
-        Pet fionasCat = new Pet();
-        fionasCat.setName("Fifioha");
-        fionasCat.setOwner(owner2);
-        fionasCat.setBirthDate(LocalDate.now());
+        Pet fionasCat = Pet.builder().name("Fifioha").owner(owner2).birthDate(LocalDate.now())
+                .petType(savedCatType).build();
         owner2.getPets().add(fionasCat);
-        fionasCat.setPetType(savedCatType);
 
         ownerService.save(owner2);
         System.out.println("Owners saved");
 
-        Specialty radiology = new Specialty("radiology");
+        Specialty radiology = Specialty.builder().description("radiology").build();
         Specialty savedRadiology = specialtyService.save(radiology);
 
-        Specialty surgery = new Specialty("surgery");
+        Specialty surgery = Specialty.builder().description("surgery").build();
         Specialty savedSurgery = specialtyService.save(surgery);
 
-        Specialty dentistry = new Specialty("dentistry");
+        Specialty dentistry = Specialty.builder().description("dentistry").build();
         Specialty savedDentistry = specialtyService.save(dentistry);
 
-        Vet vet1 = new Vet();
-        vet1.setFirstName("Mickey");
-        vet1.setLastName("Mouse");
-        vet1.getSpecialties().add(savedRadiology);
-        vet1.getSpecialties().add(savedDentistry);
+        Set<Specialty> mickeySpecialities = new HashSet<>();
+        mickeySpecialities.add(savedRadiology);
+        mickeySpecialities.add(savedDentistry);
+        Vet vet1 = Vet.builder().firstName("Mickey").lastName("Mouse").specialties(mickeySpecialities).build();
         vetService.save(vet1);
 
-        Vet vet2 = new Vet();
-        vet2.setFirstName("Guf");
-        vet2.setLastName("Duck");
-        vet2.getSpecialties().add(savedSurgery);
+        Set<Specialty> gufSpecialities = new HashSet<>();
+        gufSpecialities.add(savedSurgery);
+        Vet vet2 = Vet.builder().firstName("Guf").lastName("Duck").specialties(gufSpecialities).build();
         vetService.save(vet2);
         System.out.println("Vets saved");
 
-        PetType dog = new PetType();
-        dog.setTypeName("Togo");
-        PetType savedDogPetType = petTypeService.save(dog);
+        PetType dog = PetType.builder().typeName("Togo").build();
+        petTypeService.save(dog);
 
-        PetType cat = new PetType();
-        dog.setTypeName("MurMur");
-        PetType savedCatPetType = petTypeService.save(dog);
+        PetType cat = PetType.builder().typeName("MurMur").build();
+        petTypeService.save(cat);
         System.out.println("Pet Types saved");
     }
 }
